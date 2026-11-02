@@ -1,22 +1,22 @@
-# ECommerce (.NET 10) Learning Journal
+# ECommerce (.NET 10) Öğrenme Günlüğü
 
-This repository currently contains a starter ASP.NET Core Web API project targeting **.NET 10**.
+Bu repository, şu anda **.NET 10** hedefleyen başlangıç seviyesinde bir ASP.NET Core Web API projesi içermektedir.
 
-## Daily Notes
+## Günlük Notlar
 
-| Day | What is covered in this repo | Learning outcomes |
+| Gün | Bu repo'da ele alınan konular | Öğrenme çıktıları |
 |-----|-------------------------------|-------------------|
-| Day 1 | Initial API setup with `WebApplication.CreateBuilder`, controller registration, minimal endpoint mapping (`/ping`), and middleware pipeline basics (request logging + response timing via `OnStarting`) | Understand how an ASP.NET Core API app boots, how middleware order affects request/response flow, how to log incoming/outgoing requests, and how to attach custom response headers such as `X-Response-Time-Ms`. |
+| Gün 1 | `WebApplication.CreateBuilder` ile ilk API kurulumu, controller kaydı, minimal endpoint mapping (`/ping`) ve middleware pipeline temelleri (request logging + `OnStarting` ile response timing) | ASP.NET Core API uygulamasının nasıl ayağa kalktığını, middleware sıralamasının request/response akışını nasıl etkilediğini, gelen/giden isteklerin nasıl loglanacağını ve `X-Response-Time-Ms` gibi özel response header bilgilerinin nasıl ekleneceğini anlama. |
 
-## Current Project Structure
+## Mevcut Proje Yapısı
 
 - `ECommerce.API/Program.cs`  
-  Application startup, middleware configuration, and endpoint mapping.
+  Uygulama başlangıcı, middleware yapılandırması ve endpoint mapping.
 - `ECommerce.API/Controllers/SampleController.cs`  
-  Basic sample controller endpoint.
+  Temel örnek controller endpoint'i.
 - `ECommerce.API/ECommerce.API.csproj`  
-  Project definition targeting `net10.0`.
+  `net10.0` hedefleyen proje tanımı.
 
-## Summary
+## Özet
 
-This repo currently represents **Day 1 foundation work** for an e-commerce API backend: startup configuration, middleware concepts, and first endpoint exposure.
+Bu repo şu an, bir e-commerce API backend'i için **Gün 1 temel çalışmasını** temsil etmektedir: startup configuration, middleware kavramları ve ilk endpoint yayını.
