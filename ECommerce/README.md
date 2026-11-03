@@ -1,13 +1,15 @@
-# ECommerce Training Notes
+# ECommerce Eğitim Notları
 
-## Topics Covered Today (2026-11-03)
+## Gün 1 - 03.11.2026
 
-- Built and registered custom middleware components in the API pipeline.
-- Added centralized exception handling middleware.
-- Added request logging middleware for incoming HTTP requests.
-- Added request timing middleware and exposed duration with `X-Response-Time-Ms` response header.
-- Added a development-focused sample endpoint to validate middleware behavior.
-- Refactored `Program.cs` to move inline middleware logic into dedicated middleware classes.
-- Implemented environment-aware shop configuration using `appsettings.json`, `appsettings.Development.json`, and `appsettings.Production.json`.
-- Added strongly typed options (`ShopOptions`) and bound configuration values for controller usage.
-- Updated launch settings and project setup to support environment-based behavior during local development.
+### İşlenen Konular
+
+- API pipeline'ında özel middleware bileşenleri oluşturuldu ve kaydedildi.
+- Merkezi hata yönetimi için exception handling middleware eklendi.
+- Gelen HTTP isteklerini izlemek için request logging middleware eklendi.
+- İstek süresi ölçümü için request timing middleware eklendi ve `X-Response-Time-Ms` response header'ı üretildi.
+- Middleware davranışını doğrulamak için geliştirme ortamına özel örnek endpoint eklendi.
+- `Program.cs` içinde bulunan inline middleware yapısı, ayrı middleware sınıflarına taşınarak refactor edildi.
+- `appsettings.json`, `appsettings.Development.json` ve `appsettings.Production.json` ile ortama duyarlı yapılandırma uygulandı.
+- `ShopOptions` ile strongly typed options tanımlandı ve yapılandırma değerleri controller tarafında bind edildi.
+- Launch settings ve proje ayarları, yerel geliştirmede environment bazlı davranışı destekleyecek şekilde güncellendi.
