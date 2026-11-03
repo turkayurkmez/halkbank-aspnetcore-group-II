@@ -2,4 +2,6 @@
 
 ## Project Guidelines
 - In this workspace, README.md is located in the same folder as the .slnx file (ECommerce/README.md).
-- For this training project, README updates should be written in Turkish and organized by day sections.
+
+## README Training Notes
+- When updating this project's README training notes, include previous day topics as separate day sections if the user indicates multi-day training progression.

@@ -1,6 +1,20 @@
 # ECommerce Eğitim Notları
 
-## Gün 1 - 03.11.2026
+## Gün 1 - 02.11.2026
+
+### İşlenen Konular
+
+- .NET 10 hedefli ASP.NET Core Web API projesinin ilk kurulumu yapıldı.
+- `ECommerce.slnx` ve API proje yapısı oluşturuldu.
+- OpenAPI desteği için gerekli paket referansı eklendi.
+- `Program.cs` ile minimal başlangıç (startup) akışı kuruldu.
+- `appsettings.json` ve `appsettings.Development.json` ile temel yapılandırma dosyaları eklendi.
+- `launchSettings.json` ile geliştirme profilleri ve yerel çalıştırma ayarları tanımlandı.
+- MVC controller yapısına geçiş yapıldı ve örnek controller eklendi.
+- İstek loglama ve yanıt süresi ölçümü için ilk middleware yaklaşımı uygulandı.
+- `X-Response-Time-Ms` header'ı ile yanıt sürelerinin istemciye taşınması sağlandı.
+
+## Gün 2 - 03.11.2026
 
 ### İşlenen Konular
 
