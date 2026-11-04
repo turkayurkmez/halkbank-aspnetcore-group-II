@@ -3,6 +3,7 @@ using ECommerce.API.Middlewares;
 using ECommerce.API.Options;
 using ECommerce.API.Services;
 using ECommerce.API.Store;
+using Scalar.AspNetCore;
 using System.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,15 +16,23 @@ builder.Services.AddControllers();
 builder.Services.Configure<ShopOptions>(builder.Configuration.GetSection(ShopOptions.SECTION_NAME));
 builder.Services.AddSingleton<InMemoryStore>();
 builder.Services.AddScoped<ProductService>();
+builder.Services.AddOpenApi();
 
 var app = builder.Build(); //burada kestrel ve tüm gereksindiğim nesnelerin konfigürasyonu tamamlandı. 
-//uygulama endpoint'e gitmeden önce:
-//1. Authentication
-//2. Authorization
-//3. Loglama
-//4. Hata yakalama
+						   //uygulama endpoint'e gitmeden önce:
+						   //1. Authentication
+						   //2. Authorization
+						   //3. Loglama
+						   //4. Hata yakalama
 
 //app.Use() kullanmak yerine middleware'leri kendi sınıflarına aktardık.Middlewares/
+
+if (app.Environment.IsDevelopment())
+{
+	app.MapOpenApi();
+	app.MapScalarApiReference();
+
+}
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseMiddleware<RequestLoggingMidleware>();

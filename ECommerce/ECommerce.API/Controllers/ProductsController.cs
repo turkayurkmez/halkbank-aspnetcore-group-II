@@ -1,4 +1,5 @@
-﻿using ECommerce.API.Services;
+﻿using ECommerce.API.Models;
+using ECommerce.API.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,5 +23,22 @@ namespace ECommerce.API.Controllers
             await Task.CompletedTask;
             return Ok(await _productService.GetAllProductsAsync());
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Product product)
+        {
+            await _productService.CreateAsync(product);
+            return CreatedAtAction(nameof(Get), new { id = product.Id }, product);
+
+        }
+
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var product = await _productService.GetByIdAsync(id);
+            return product is null ? NotFound() : Ok(product);
+        }
+
+
     }
 }

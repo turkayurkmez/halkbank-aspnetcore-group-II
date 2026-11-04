@@ -4,7 +4,7 @@ namespace ECommerce.API.Store
 {
     public class InMemoryStore // Bu sınıfın sorumluluğu bellekte product nesnesini tutmak.
     {
-        private int lastProductId;
+        private int lastProductId=0;
         public List<Product> Products { get; } = new();
 
         public void AddProduct(Product product)
@@ -20,9 +20,9 @@ namespace ECommerce.API.Store
 
         public InMemoryStore()
         {
-            AddProduct(new Product { Id = nextProductId(), Name = "TV Sehpası", Price = 3000, CategoryId = 1 });
-            AddProduct(new Product { Id = nextProductId(), Name = "Kulaklık", Price = 2000, CategoryId = 2 });
-            AddProduct(new Product { Id = nextProductId(), Name = "Tişört", Price = 500, CategoryId = 3 });
+            AddProduct(new Product { Name = "TV Sehpası", Price = 3000, CategoryId = 1 });
+            AddProduct(new Product { Name = "Kulaklık", Price = 2000, CategoryId = 2 });
+            AddProduct(new Product { Name = "Tişört", Price = 500, CategoryId = 3 });
 
 
         }

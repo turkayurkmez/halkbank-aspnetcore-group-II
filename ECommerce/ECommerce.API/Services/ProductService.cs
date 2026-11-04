@@ -18,5 +18,18 @@ namespace ECommerce.API.Services
         }
 
 
+        public async Task<Product?> GetByIdAsync(int id) {
+
+            await Task.CompletedTask;
+            return _store.Products.FirstOrDefault(p => p.Id == id);
+        }
+
+        public async Task<Product> CreateAsync(Product product)
+        {
+            await Task.CompletedTask;
+            _store.AddProduct(product);
+            return product;
+        }
+
     }
 }
