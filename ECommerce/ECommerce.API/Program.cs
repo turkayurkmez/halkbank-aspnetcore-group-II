@@ -1,5 +1,6 @@
 using ECommerce.API.Demo;
 using ECommerce.API.Middlewares;
+using ECommerce.API.Notifications;
 using ECommerce.API.Options;
 using ECommerce.API.Services;
 using ECommerce.API.Store;
@@ -16,6 +17,14 @@ builder.Services.AddControllers();
 builder.Services.Configure<ShopOptions>(builder.Configuration.GetSection(ShopOptions.SECTION_NAME));
 builder.Services.AddSingleton<InMemoryStore>();
 builder.Services.AddScoped<ProductService>();
+builder.Services.AddSingleton<INotificationChannel,EmailChannel>();
+builder.Services.AddSingleton<INotificationChannel, SMSChannel>();
+builder.Services.AddSingleton<INotificationChannel, WhatsAppChannel>();
+builder.Services.AddScoped<NotificationService>();
+builder.Services.AddScoped<OrderService>();
+
+
+
 builder.Services.AddOpenApi();
 
 var app = builder.Build(); //burada kestrel ve tüm gereksindiğim nesnelerin konfigürasyonu tamamlandı. 
