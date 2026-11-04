@@ -27,3 +27,20 @@
 - `appsettings.json`, `appsettings.Development.json` ve `appsettings.Production.json` ile ortama duyarlı yapılandırma uygulandı.
 - `ShopOptions` ile strongly typed options tanımlandı ve yapılandırma değerleri controller tarafında bind edildi.
 - Launch settings ve proje ayarları, yerel geliştirmede environment bazlı davranışı destekleyecek şekilde güncellendi.
+
+## Gün 3 - 04.11.2026
+
+### İşlenen Konular
+
+- Sipariş oluşturma akışı için `OrderController` ve `OrderService` katmanları eklendi.
+- Bildirim gönderimi için `INotificationChannel` sözleşmesi tanımlandı.
+- `EmailChannel`, `SMSChannel` ve `WhatsAppChannel` ile çoklu bildirim kanalı desteği geliştirildi.
+- `NotificationService`, tüm bildirim kanallarını tek noktadan çalıştıracak şekilde tasarlandı.
+- Bildirim altyapısı dependency injection ile `Program.cs` üzerinden kayıt edilerek genişletilebilir hale getirildi.
+
+### SOLID Vurgusu (SRP / OCP)
+
+- **SRP:** `OrderController` sadece HTTP istek/yanıt sorumluluğunu taşır; iş kuralı `OrderService` içinde tutulur.
+- **SRP:** Her kanal sınıfı (`EmailChannel`, `SMSChannel`, `WhatsAppChannel`) yalnızca kendi gönderim davranışından sorumludur.
+- **OCP:** `NotificationService`, `INotificationChannel` üzerinden çalıştığı için yeni bir kanal eklemek mevcut servisi değiştirmeden mümkündür.
+- **OCP:** `Program.cs` içinde yeni bildirim kanalları yalnızca DI kaydı eklenerek sisteme dahil edilebilir.
