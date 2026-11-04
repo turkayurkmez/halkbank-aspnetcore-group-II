@@ -1,6 +1,8 @@
 using ECommerce.API.Demo;
 using ECommerce.API.Middlewares;
 using ECommerce.API.Options;
+using ECommerce.API.Services;
+using ECommerce.API.Store;
 using System.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +13,8 @@ builder.Services.AddControllers();
 //builder.Services.AddScoped<DemoScope>();
 
 builder.Services.Configure<ShopOptions>(builder.Configuration.GetSection(ShopOptions.SECTION_NAME));
+builder.Services.AddSingleton<InMemoryStore>();
+builder.Services.AddScoped<ProductService>();
 
 var app = builder.Build(); //burada kestrel ve tüm gereksindiğim nesnelerin konfigürasyonu tamamlandı. 
 //uygulama endpoint'e gitmeden önce:
