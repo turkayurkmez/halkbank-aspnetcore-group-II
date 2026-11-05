@@ -44,3 +44,22 @@
 - **SRP:** Her kanal sınıfı (`EmailChannel`, `SMSChannel`, `WhatsAppChannel`) yalnızca kendi gönderim davranışından sorumludur.
 - **OCP:** `NotificationService`, `INotificationChannel` üzerinden çalıştığı için yeni bir kanal eklemek mevcut servisi değiştirmeden mümkündür.
 - **OCP:** `Program.cs` içinde yeni bildirim kanalları yalnızca DI kaydı eklenerek sisteme dahil edilebilir.
+
+## Gün 4 - 05.11.2026
+
+### İşlenen Konular
+
+- Ürün ve sipariş akışları için servis soyutlamaları (`IProductService`, `IOrderService`) tanımlandı.
+- Veri erişim katmanında generic repository sözleşmesi (`IRepository<T>`) ve ürün odaklı sözleşme (`IProductRepository`) eklendi.
+- `InMemoryProductRepository`, `IProductRepository` üzerinden DI ile sisteme bağlandı.
+- `ProductsController` ve `OrderController`, somut sınıflar yerine servis arayüzlerine bağımlı olacak şekilde güncellendi.
+- `Program.cs` içinde servis ve repository kayıtları arayüz-temelli bağımlılık yönetimine göre düzenlendi.
+- `Demo.SOLID` projesinde matematik örnekleri `IMath` ve `IAdvMath` arayüzlerine ayrılarak istemciye ihtiyacı kadar sözleşme sunan bir yapı gösterildi.
+
+### SOLID Vurgusu (DIP / ISP)
+
+- **DIP:** Controller katmanı (`ProductsController`, `OrderController`) doğrudan somut servis sınıflarına değil, `IProductService` ve `IOrderService` soyutlamalarına bağlandı.
+- **DIP:** `ProductService`, veri kaynağını doğrudan yönetmek yerine `IProductRepository` üzerinden çalışacak şekilde kurgulandı; böylece altyapı detayları üst katmandan ayrıştırıldı.
+- **DIP:** Uygulama başlangıcında (`Program.cs`) bağımlılıklar DI container üzerinden çözülerek üst seviye modüllerin alt seviye implementasyonlara sıkı bağlılığı azaltıldı.
+- **ISP:** `IRepository<T>` temel CRUD sorumluluklarını taşırken, ürüne özgü davranışlar (`SearchByNameAsync`) ayrı bir arayüzde (`IProductRepository`) tutuldu.
+- **ISP:** `IMath` ve `IAdvMath` ayrımı ile temel hesaplama ihtiyacı olan sınıfların gelişmiş matematik operasyonlarını zorunlu olarak implemente etmesinin önüne geçildi.
