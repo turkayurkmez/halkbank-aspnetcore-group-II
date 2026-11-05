@@ -4,7 +4,7 @@ using ECommerce.API.Notifications;
 namespace ECommerce.API.Services
 {
 
-    public class OrderService
+    public class OrderService : IOrderService
     {
         private readonly NotificationService notificationService;
 

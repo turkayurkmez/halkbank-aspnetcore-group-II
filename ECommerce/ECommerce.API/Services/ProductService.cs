@@ -1,33 +1,37 @@
 ﻿using ECommerce.API.Models;
+using ECommerce.API.Repositories;
 using ECommerce.API.Store;
 
 namespace ECommerce.API.Services
 {
-    public class ProductService // Bu sınıfın sorumluluğu, product nesnesiyle ilgili TÜM işlemleri yapmak.
+    public class ProductService : IProductService
+    // Bu sınıfın sorumluluğu, product nesnesiyle ilgili TÜM işlemleri yapmak.
     {
-        private InMemoryStore _store;
+        private IProductRepository productRepository;
 
-        public ProductService(InMemoryStore store)
+        public ProductService(IProductRepository productRepository)
         {
-            _store = store;
+            this.productRepository = productRepository;
         }
 
-        public async Task<IReadOnlyList<Product>> GetAllProductsAsync()
+        public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
-            return _store.Products;
+            return await productRepository.GetAllAsync();
         }
 
 
-        public async Task<Product?> GetByIdAsync(int id) {
+        public async Task<Product?> GetByIdAsync(int id)
+        {
 
             await Task.CompletedTask;
-            return _store.Products.FirstOrDefault(p => p.Id == id);
+            return null;
+            // return _store.Products.FirstOrDefault(p => p.Id == id);
         }
 
         public async Task<Product> CreateAsync(Product product)
         {
             await Task.CompletedTask;
-            _store.AddProduct(product);
+            //  _store.AddProduct(product);
             return product;
         }
 

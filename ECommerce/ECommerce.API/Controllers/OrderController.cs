@@ -9,9 +9,9 @@ namespace ECommerce.API.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
-        private readonly OrderService orderService;
+        private readonly IOrderService orderService;
 
-        public OrderController(OrderService orderService)
+        public OrderController(IOrderService orderService)
         {
             this.orderService = orderService;
         }
