@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<h3>Dependency Injection Ömrü için POC</h3>
+<p>Singleton: @ViewBag.Singleton</p>
+<p>Scoped: @ViewBag.Scoped</p>
+<p>Transient: @ViewBag.Transient</p>
+<hr />
+<p>Servisten Singleton: @ViewBag.ServiceSingleton</p>
+<p>Servisten Scoped: @ViewBag.ServiceScoped</p>
+<p>Servisten Transient: @ViewBag.ServiceTransient</p>
