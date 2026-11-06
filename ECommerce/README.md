@@ -63,3 +63,17 @@
 - **DIP:** Uygulama başlangıcında (`Program.cs`) bağımlılıklar DI container üzerinden çözülerek üst seviye modüllerin alt seviye implementasyonlara sıkı bağlılığı azaltıldı.
 - **ISP:** `IRepository<T>` temel CRUD sorumluluklarını taşırken, ürüne özgü davranışlar (`SearchByNameAsync`) ayrı bir arayüzde (`IProductRepository`) tutuldu.
 - **ISP:** `IMath` ve `IAdvMath` ayrımı ile temel hesaplama ihtiyacı olan sınıfların gelişmiş matematik operasyonlarını zorunlu olarak implemente etmesinin önüne geçildi.
+
+## Gün 5 - 06.11.2026
+
+### İşlenen Konular
+
+- DI yaşam döngüleri (Singleton / Scoped / Transient) için `DEMO.DILifeCycle` MVC projesi ile POC yapıldı.
+- `ISingleton`, `IScoped`, `ITransient` ve `GuidService` ile aynı istek içinde ve istekler arasında örnek paylaşımı gözlemlendi.
+- `ECommerce.API` projesine EF Core (SQL Server) eklendi; bağlantı bilgisi `appsettings.json` içinde tanımlandı.
+- `Product`, `Category`, `Review`, `Customer`, `Order` ve `OrderItem` entity modelleri oluşturuldu.
+- `AppDbContext` içinde Fluent API ile kısıtlar tanımlandı (zorunlu alanlar, `MaxLength`, `SKU` için unique index, `Category.Name` index'i).
+- Product-Category ilişkisi `DeleteBehavior.Restrict` ile yapılandırıldı.
+- `initialize` ve `indexes` migration'ları oluşturuldu.
+- `DbSeeder` ile başlangıç verisi eklendi ve `Program.cs` içinde DbContext kaydı yapıldı.
+
