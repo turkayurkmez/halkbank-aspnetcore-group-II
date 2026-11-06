@@ -1,3 +1,4 @@
+using ECommerce.API.Data;
 using ECommerce.API.Demo;
 using ECommerce.API.Middlewares;
 using ECommerce.API.Notifications;
@@ -5,6 +6,7 @@ using ECommerce.API.Options;
 using ECommerce.API.Repositories;
 using ECommerce.API.Services;
 using ECommerce.API.Store;
+using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using System.Diagnostics;
 
@@ -25,6 +27,10 @@ builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IProductRepository, InMemoryProductRepository>();
 
+var conectionString = builder.Configuration.GetConnectionString("Default");
+builder.Services.AddDbContext<AppDbContext>(option=>option.UseSqlServer(conectionString));
+
+
 
 builder.Services.AddOpenApi();
 
@@ -42,6 +48,11 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.MapScalarApiReference();
+
+    using var scope = app.Services.CreateScope();
+
+    await DbSeeder.SeedAsync(scope.ServiceProvider.GetRequiredService<AppDbContext>());
+
 
 }
 
