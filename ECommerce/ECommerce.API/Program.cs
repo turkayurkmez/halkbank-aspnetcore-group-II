@@ -9,11 +9,12 @@ using ECommerce.API.Store;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using System.Diagnostics;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(option => option.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 //Demo: Scoped bir instance' middleware'a gönderirken sadece InvokeAsync kullanılmalı
 //builder.Services.AddScoped<DemoScope>();
 
@@ -25,7 +26,7 @@ builder.Services.AddSingleton<INotificationChannel, SMSChannel>();
 builder.Services.AddSingleton<INotificationChannel, WhatsAppChannel>();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
-builder.Services.AddScoped<IProductRepository, InMemoryProductRepository>();
+builder.Services.AddScoped<IProductRepository, EFProductRepository>();
 
 var conectionString = builder.Configuration.GetConnectionString("Default");
 builder.Services.AddDbContext<AppDbContext>(option=>option.UseSqlServer(conectionString));

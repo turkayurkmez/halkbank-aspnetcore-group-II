@@ -16,9 +16,9 @@ namespace ECommerce.API.Models
         public int CategoryId { get; set; }
 
         //Navigation Property:
-        public ICollection<Review> Reviews { get; set; }
-        public ICollection<OrderItem> OrderItems { get; set; }
-        public Category Category { get; set; }
+        public ICollection<Review>? Reviews { get; set; }
+        public ICollection<OrderItem>? OrderItems { get; set; }
+        public Category? Category { get; set; }
 
     }
 }

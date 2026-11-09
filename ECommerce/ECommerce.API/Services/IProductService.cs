@@ -1,4 +1,6 @@
-﻿using ECommerce.API.Models;
+﻿using ECommerce.API.Data;
+using ECommerce.API.Models;
+using ECommerce.API.Repositories;
 
 namespace ECommerce.API.Services
 {
@@ -7,5 +9,11 @@ namespace ECommerce.API.Services
         Task<Product> CreateAsync(Product product);
         Task<IEnumerable<Product>> GetAllProductsAsync();
         Task<Product?> GetByIdAsync(int id);
+
+        Task<bool> DeleteAsync(int id);
+        Task<Product> UpdateAsync(Product product);
+        Task<IEnumerable<ProductSummary>> GetProductSummaries();
+
+        Task<Product> ApplyDiscount(int id, decimal discountRate);
     }
 }
