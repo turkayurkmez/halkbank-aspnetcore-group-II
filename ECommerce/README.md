@@ -77,3 +77,14 @@
 - `initialize` ve `indexes` migration'ları oluşturuldu.
 - `DbSeeder` ile başlangıç verisi eklendi ve `Program.cs` içinde DbContext kaydı yapıldı.
 
+
+## Gün 6
+
+### İşlenen Konular
+
+- `EFProductRepository` ile `IProductRepository` EF Core üzerinden gerçeklendi ve DI'da `AddScoped` ile kaydedildi (`InMemoryProductRepository` yerine).
+- CRUD işlemleri `AppDbContext` üzerinden (`AddAsync`, `FindAsync`, `Remove`, `Update`, `SaveChangesAsync`) yapıldı.
+- Okuma sorgularında `AsNoTracking` kullanımı ve `Include` ile ilişkili `Category` yükleme gösterildi.
+- `Update` çağrısının Id değerine göre INSERT/UPDATE davranışı incelendi.
+- `Select` ile `ProductSummary` projeksiyonu (`GetProductSummaries`) eklendi.
+
