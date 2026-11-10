@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ECommerce.API.Models
+namespace ECommerce.Infrastructure.Entities
 {
     public class Product
     {
         public int Id { get; set; }
 
 
-        [Required(ErrorMessage ="Ürün Adı boş olamaz")]
+        [Required(ErrorMessage = "Ürün Adı boş olamaz")]
         [MaxLength(200)]
         public string Name { get; set; } = string.Empty;
         public string SKU { get; set; } = string.Empty;

@@ -27,7 +27,7 @@
                 }
 
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                await context.Response.WriteAsJsonAsync(new {error = "Beklenmeyen bir hata oluştu!"});
+                await context.Response.WriteAsJsonAsync(new { error = "Beklenmeyen bir hata oluştu!" });
             }
         }
     }

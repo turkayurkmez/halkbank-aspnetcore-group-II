@@ -1,6 +1,6 @@
-﻿using ECommerce.API.Models;
+﻿
 using ECommerce.API.Services;
-using Microsoft.AspNetCore.Http;
+using ECommerce.Infrastructure.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.API.Controllers
@@ -20,7 +20,7 @@ namespace ECommerce.API.Controllers
         public async Task<IActionResult> Create(Order order)
         {
             var created = await orderService.CreateAsync(order);
-            return Created("https://sampleUrl.com",value:  created);
+            return Created("https://sampleUrl.com", value: created);
         }
     }
 }

@@ -1,9 +1,8 @@
-﻿using ECommerce.API.Data;
-using ECommerce.API.Models;
-using ECommerce.API.Services;
+﻿using ECommerce.Infrastructure.Data;
+using ECommerce.Infrastructure.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace ECommerce.API.Repositories
+namespace ECommerce.Infrastructure.Repositories
 {
     public class EFProductRepository(AppDbContext db) : IProductRepository
     {
@@ -84,7 +83,7 @@ namespace ECommerce.API.Repositories
         {
             var product = await db.Products.FindAsync(id);
             product.Price *= 1 - discountRate;
-            
+
             await db.SaveChangesAsync();
             return product;
         }

@@ -1,14 +1,11 @@
-using ECommerce.API.Data;
-using ECommerce.API.Demo;
 using ECommerce.API.Middlewares;
 using ECommerce.API.Notifications;
 using ECommerce.API.Options;
-using ECommerce.API.Repositories;
 using ECommerce.API.Services;
-using ECommerce.API.Store;
+using ECommerce.Infrastructure.Data;
+using ECommerce.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
-using System.Diagnostics;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,8 +16,8 @@ builder.Services.AddControllers().AddJsonOptions(option => option.JsonSerializer
 //builder.Services.AddScoped<DemoScope>();
 
 builder.Services.Configure<ShopOptions>(builder.Configuration.GetSection(ShopOptions.SECTION_NAME));
-builder.Services.AddSingleton<InMemoryStore>();
-builder.Services.AddScoped<IProductService,ProductService>();
+
+builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddSingleton<INotificationChannel, EmailChannel>();
 builder.Services.AddSingleton<INotificationChannel, SMSChannel>();
 builder.Services.AddSingleton<INotificationChannel, WhatsAppChannel>();
@@ -29,7 +26,7 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IProductRepository, EFProductRepository>();
 
 var conectionString = builder.Configuration.GetConnectionString("Default");
-builder.Services.AddDbContext<AppDbContext>(option=>option.UseSqlServer(conectionString));
+builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(conectionString));
 
 
 

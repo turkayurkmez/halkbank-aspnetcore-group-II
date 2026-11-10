@@ -1,7 +1,7 @@
-﻿using ECommerce.API.Models;
+﻿using ECommerce.Infrastructure.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace ECommerce.API.Data
+namespace ECommerce.Infrastructure.Data
 {
     public static class DbSeeder
     {
@@ -15,7 +15,7 @@ namespace ECommerce.API.Data
                 var clothing = new Category { Name = "Giyim" };
                 var books = new Category { Name = "Kitap" };
 
-                
+
 
                 db.Categories.AddRange(electonics, clothing, books);
                 await db.SaveChangesAsync();

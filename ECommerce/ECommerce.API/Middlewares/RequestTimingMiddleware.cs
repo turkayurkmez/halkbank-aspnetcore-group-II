@@ -1,5 +1,4 @@
-﻿using ECommerce.API.Demo;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace ECommerce.API.Middlewares
 {
@@ -7,16 +6,17 @@ namespace ECommerce.API.Middlewares
     {
         private readonly RequestDelegate _next;
         private readonly ILogger<RequestTimingMiddleware> _logger;
-       // private readonly DemoScope _scope;
+        // private readonly DemoScope _scope;
 
         public RequestTimingMiddleware(RequestDelegate next, ILogger<RequestTimingMiddleware> logger)
         {
             _next = next;
             _logger = logger;
-           
+
         }
 
-        public async Task InvokeAsync(HttpContext context) {
+        public async Task InvokeAsync(HttpContext context)
+        {
 
             //_logger.LogInformation("İstek burada: Timing middleware");
 

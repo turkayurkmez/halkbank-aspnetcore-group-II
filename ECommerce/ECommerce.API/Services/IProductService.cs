@@ -1,6 +1,6 @@
-﻿using ECommerce.API.Data;
-using ECommerce.API.Models;
-using ECommerce.API.Repositories;
+﻿
+using ECommerce.Infrastructure.Entities;
+using ECommerce.Infrastructure.Repositories;
 
 namespace ECommerce.API.Services
 {

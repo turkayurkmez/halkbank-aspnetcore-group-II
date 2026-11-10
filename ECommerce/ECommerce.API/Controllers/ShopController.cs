@@ -1,5 +1,4 @@
 ﻿using ECommerce.API.Options;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
@@ -37,7 +36,7 @@ namespace ECommerce.API.Controllers
                 maxOrderItems = shopOptions.MaxOrderItems,
                 environment = _environment.EnvironmentName,
                 paymentConfigured = isFindUserSecret,
-               // paymentApi = _configuration["ExternalServices:PaymentApiKey"]
+                // paymentApi = _configuration["ExternalServices:PaymentApiKey"]
             });
         }
     }

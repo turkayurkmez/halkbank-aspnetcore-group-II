@@ -1,7 +1,7 @@
-﻿using ECommerce.API.Data;
-using ECommerce.API.Models;
-using ECommerce.API.Repositories;
-using ECommerce.API.Store;
+﻿
+
+using ECommerce.Infrastructure.Entities;
+using ECommerce.Infrastructure.Repositories;
 
 namespace ECommerce.API.Services
 {
@@ -46,7 +46,7 @@ namespace ECommerce.API.Services
 
         }
 
-        
+
         public async Task<IEnumerable<ProductSummary>> GetProductSummaries()
         {
             return await productRepository.GetProductSummaries();
@@ -58,7 +58,7 @@ namespace ECommerce.API.Services
         }
     }
 
-   
+
 
 
 

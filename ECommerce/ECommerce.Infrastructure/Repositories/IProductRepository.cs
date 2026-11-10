@@ -1,6 +1,6 @@
-﻿using ECommerce.API.Models;
+﻿using ECommerce.Infrastructure.Entities;
 
-namespace ECommerce.API.Repositories
+namespace ECommerce.Infrastructure.Repositories
 {
     public interface IProductRepository : IRepository<Product>
     {
@@ -8,7 +8,7 @@ namespace ECommerce.API.Repositories
         Task<IEnumerable<Product>> SearchByNameAsync(string name);
 
         Task<Product> ApplyDiscountAsync(int id, decimal discountRate);
-        
+
 
     }
 }

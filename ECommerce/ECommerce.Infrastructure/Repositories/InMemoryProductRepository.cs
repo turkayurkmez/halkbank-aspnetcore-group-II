@@ -1,7 +1,6 @@
-﻿using ECommerce.API.Models;
-using ECommerce.API.Store;
+﻿
 
-namespace ECommerce.API.Repositories
+namespace ECommerce.Infrastructure.Repositories
 {
     //public class InMemoryProductRepository : IProductRepository
     //{

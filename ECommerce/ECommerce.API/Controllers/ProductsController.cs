@@ -1,7 +1,6 @@
-﻿using ECommerce.API.Models;
-using ECommerce.API.Repositories;
+﻿
 using ECommerce.API.Services;
-using Microsoft.AspNetCore.Http;
+using ECommerce.Infrastructure.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.API.Controllers
@@ -57,7 +56,7 @@ namespace ECommerce.API.Controllers
         }
 
         [HttpPut("indirim/{id}")]
-        public async Task<IActionResult> ChangePrice(int id, [FromQuery]decimal discount)
+        public async Task<IActionResult> ChangePrice(int id, [FromQuery] decimal discount)
         {
             return Ok(await _productService.ApplyDiscount(id, discount));
         }

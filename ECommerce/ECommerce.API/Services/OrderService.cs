@@ -1,5 +1,6 @@
-﻿using ECommerce.API.Models;
+﻿
 using ECommerce.API.Notifications;
+using ECommerce.Infrastructure.Entities;
 
 namespace ECommerce.API.Services
 {

@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace ECommerce.API.Migrations
+namespace ECommerce.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class indexes : Migration
