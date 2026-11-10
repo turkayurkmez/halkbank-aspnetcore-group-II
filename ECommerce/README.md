@@ -88,3 +88,21 @@
 - `Update` çağrısının Id değerine göre INSERT/UPDATE davranışı incelendi.
 - `Select` ile `ProductSummary` projeksiyonu (`GetProductSummaries`) eklendi.
 
+
+## Gün 7 - 10.11.2026
+
+### İşlenen Konular
+
+- Veri erişim kodu `ECommerce.Infrastructure` class library projesine taşındı (`AppDbContext`, `DbSeeder`, entity'ler, repository'ler, migration'lar); `ECommerce.API` bu projeye referans verir.
+- Kullanılmayan `InMemoryStore` kaldırıldı; API katmanı yalnızca servis ve controller sorumluluklarını taşır.
+- `IEntity` marker interface'i eklendi; entity'ler bu arayüzü uygular ve generic repository `where T : class, IEntity, new()` kısıtıyla sınırlandırıldı.
+- Generic `Repository<T>` (`CreateAsync`, `GetAllAsync(predicate)`, `GetbyIdAsync`, `UpdateAsync`, `DeleteAsync`) yazıldı; okuma sorgularında `AsNoTracking` kullanıldı. `EFProductRepository` bu sınıftan türetilerek ürüne özgü sorgularla genişletildi.
+- **Unit of Work** deseni uygulandı: `IUnitOfWork` / `UnitOfWork`, `Products` ve `Categories` repository'lerini tek `AppDbContext` örneği üzerinden sunar (lazy oluşturma, `??=`).
+- Repository metotları artık `SaveChanges` çağırmaz; değişiklikler `IUnitOfWork.SaveChangesAsync()` ile tek noktadan ve tek transaction içinde kaydedilir.
+- `ProductService`, `IProductRepository` yerine `IUnitOfWork` üzerinden çalışacak şekilde güncellendi; `Program.cs` içinde `IUnitOfWork` DI'a (`AddScoped`) kaydedildi.
+
+### Vurgulanan Noktalar
+
+- **Marker interface:** Üyesi olmayan arayüz, yalnızca generic tipi kısıtlamak için kullanılır.
+- **Unit of Work:** Birden fazla repository'deki değişiklikleri tek iş birimi olarak kaydederek tutarlılık sağlar.
+- **Katmanlı mimari:** Persistence'ın Infrastructure'a taşınması bağımlılık yönünü netleştirir (API -> Infrastructure).
