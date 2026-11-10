@@ -23,7 +23,7 @@ builder.Services.AddSingleton<INotificationChannel, SMSChannel>();
 builder.Services.AddSingleton<INotificationChannel, WhatsAppChannel>();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
-builder.Services.AddScoped<IProductRepository, EFProductRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var conectionString = builder.Configuration.GetConnectionString("Default");
 builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(conectionString));

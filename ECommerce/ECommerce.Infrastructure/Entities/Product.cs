@@ -2,7 +2,7 @@
 
 namespace ECommerce.Infrastructure.Entities
 {
-    public class Product
+    public class Product : IEntity
     {
         public int Id { get; set; }
 

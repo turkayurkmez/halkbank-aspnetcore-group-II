@@ -1,6 +1,6 @@
 ﻿namespace ECommerce.Infrastructure.Entities
 {
-    public class Review
+    public class Review : IEntity
     {
         public int Id { get; set; }
         public int CustomerId { get; set; }

@@ -1,13 +1,16 @@
-﻿namespace ECommerce.Infrastructure.Repositories
+﻿using ECommerce.Infrastructure.Entities;
+using System.Linq.Expressions;
+
+namespace ECommerce.Infrastructure.Repositories
 {
-    public interface IRepository<T> where T : class, new()
+    public interface IRepository<T> where T : class, IEntity, new()
     {
         Task<T> CreateAsync(T entity);
-        Task<IEnumerable<T>> GetAllAsync();
+        Task<IEnumerable<T>> GetAllAsync(Expression<Func<T,bool>>? predicate = null);
         Task<T> GetbyIdAsync(int id);
 
-        Task<T> UpdateAsync(T entity);
-        Task<bool> DeleteAsync(int id);
+        void UpdateAsync(T entity);
+        void DeleteAsync(T entity);
 
         Task<bool> IsExistsAsync(int id);
     }

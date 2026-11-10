@@ -1,6 +1,6 @@
 ﻿namespace ECommerce.Infrastructure.Entities
 {
-    public class Order
+    public class Order : IEntity
     {
         public int Id { get; set; }
         public int CustomerId { get; set; }
