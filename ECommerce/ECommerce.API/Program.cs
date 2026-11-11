@@ -2,8 +2,10 @@ using ECommerce.API.Middlewares;
 using ECommerce.API.Notifications;
 using ECommerce.API.Options;
 using ECommerce.API.Services;
+using ECommerce.API.Validators;
 using ECommerce.Infrastructure.Data;
 using ECommerce.Infrastructure.Repositories;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using System.Text.Json.Serialization;
@@ -28,7 +30,8 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 var conectionString = builder.Configuration.GetConnectionString("Default");
 builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(conectionString));
 
-
+//Her yeni ...Validator'u yazmaktansa, bir kere class'ın bulunduğu yeri belirtin geri kalanını otomatik eklesin:
+builder.Services.AddValidatorsFromAssemblyContaining<CreateProductValidator>();
 
 builder.Services.AddOpenApi();
 
