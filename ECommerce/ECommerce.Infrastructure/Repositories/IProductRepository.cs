@@ -9,6 +9,8 @@ namespace ECommerce.Infrastructure.Repositories
 
         Task<Product> ApplyDiscountAsync(int id, decimal discountRate);
 
+        Task<bool> IsSKUExists(string sku);
+
 
     }
 }

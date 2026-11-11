@@ -1,4 +1,5 @@
 ﻿
+using ECommerce.API.Extensions;
 using ECommerce.API.Models.Requests;
 using ECommerce.API.Services;
 using ECommerce.API.Validators;
@@ -36,11 +37,7 @@ namespace ECommerce.API.Controllers
             var validation = await _createValidator.ValidateAsync(request);
             if (!validation.IsValid)
             {
-                foreach (var item in validation.Errors)
-                {
-                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-                    return ValidationProblem(ModelState);
-                }
+                return validation.ToValidationProblem(this);
             }
 
             var product = new Product

@@ -34,6 +34,11 @@ namespace ECommerce.Infrastructure.Repositories
 
         }
 
+        public async Task<bool> IsSKUExists(string sku)
+        {
+            return await db.Products.AnyAsync(p => p.SKU == sku);
+        }
+
 
         //public async Task<Product> CreateAsync(Product entity)
         //{
