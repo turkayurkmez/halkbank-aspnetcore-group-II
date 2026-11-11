@@ -1,4 +1,4 @@
-# ECommerce Eğitim Notları
+﻿# ECommerce Eğitim Notları
 
 ## Gün 1 - 02.11.2026
 
@@ -106,3 +106,21 @@
 - **Marker interface:** Üyesi olmayan arayüz, yalnızca generic tipi kısıtlamak için kullanılır.
 - **Unit of Work:** Birden fazla repository'deki değişiklikleri tek iş birimi olarak kaydederek tutarlılık sağlar.
 - **Katmanlı mimari:** Persistence'ın Infrastructure'a taşınması bağımlılık yönünü netleştirir (API -> Infrastructure).
+
+## Gün 8 - 11.11.2026
+
+### İşlenen Konular
+
+- FluentValidation paketi `ECommerce.API` projesine eklendi ve `Program.cs` içinde yapılandırıldı.
+- `CreateProductRequest` modeli (`Models/Requests`) oluşturuldu; ürün oluşturma isteği entity yerine bu modelle alınır.
+- `CreateProductValidator` ile kurallar tanımlandı: ürün adı zorunlu (2-200 karakter), fiyat 0'dan büyük, stok negatif olamaz.
+- Validator, `IUnitOfWork` enjekte edilerek veritabanı kontrolü yapar: kategori id'si DB'de yoksa hata verir (`MustAsync`).
+- `Sku` kuralı: boş olamaz, `^[A-Z0-9-]{4,20}$` desenine uymalı ve benzersiz olmalı; `Cascade(CascadeMode.Stop)` ile ilk hatada durulur.
+- `IProductRepository` / `EFProductRepository` içine `IsSKUExists` metodu eklendi.
+- Doğrulama hataları `ValidationResultExtensions.ToValidationProblem` uzantı metoduna taşındı; controller içindeki tekrar eden `ModelState` döngüsü kaldırıldı ve tüm hatalar tek `ValidationProblem` yanıtında döner.
+
+### Vurgulanan Noktalar
+
+- **Asenkron doğrulama:** Veritabanı gerektiren kurallar `MustAsync` ile yazılır.
+- **Extension method:** Tekrarlanan hata dönüştürme kodu tek noktada toplanır.
+- **Cascade mode:** Gereksiz DB sorgusunu önlemek için ilk başarısız kuralda durulur.
