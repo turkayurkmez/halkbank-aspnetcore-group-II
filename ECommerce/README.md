@@ -117,10 +117,18 @@
 - Validator, `IUnitOfWork` enjekte edilerek veritabanı kontrolü yapar: kategori id'si DB'de yoksa hata verir (`MustAsync`).
 - `Sku` kuralı: boş olamaz, `^[A-Z0-9-]{4,20}$` desenine uymalı ve benzersiz olmalı; `Cascade(CascadeMode.Stop)` ile ilk hatada durulur.
 - `IProductRepository` / `EFProductRepository` içine `IsSKUExists` metodu eklendi.
-- Doğrulama hataları `ValidationResultExtensions.ToValidationProblem` uzantı metoduna taşındı; controller içindeki tekrar eden `ModelState` döngüsü kaldırıldı ve tüm hatalar tek `ValidationProblem` yanıtında döner.
+tek `ValidationProblem` yanıtında döner.
+- `ProductListResponse`
+- `CategoriesController` ile kategori endpoint'i eklendi.
+- `IProductRepository` / `EFProductRepository` içine `ListWithCategoryAsync` ve `GetProductWithCategory` eklendi; `Include` ile `Category` yüklenir, `Include` bilgisi yalnızca EF implementasyonunda kalır.
+- **Mapster** projeye eklendi; manuel `Select` ile eşleme yerine `Adapt<T>()` kullanıldı.
+- `ProductMappingConfig` (`IRegister`) ile özel eşlemeler yazıldı: `Category.Name` -> `CategoryName`, `CreateProductRequest` -> `Product` (`Id`, `Reviews`, `Category`, `OrderItems` yok sayılır).
+- `Program.cs` içinde `RequireDestinationMemberSource(true)`, `Scan` ve `Compile` ile eşleme kuralları başlangıçta taranıp doğrulanır.
 
 ### Vurgulanan Noktalar
 
 - **Asenkron doğrulama:** Veritabanı gerektiren kurallar `MustAsync` ile yazılır.
 - **Extension method:** Tekrarlanan hata dönüştürme kodu tek noktada toplanır.
 - **Cascade mode:** Gereksiz DB sorgusunu önlemek için ilk başarısız kuralda durulur.
+- **DTO:** Entity'ler API dışına sızmaz; yanıt şekli servis katmanında DTO ile belirlenir.
+- **Mapster:** Aynı isim ve tipteki alanlar otomatik eşlenir; farklı olanlar için `IRegister` ile config yazılır.
