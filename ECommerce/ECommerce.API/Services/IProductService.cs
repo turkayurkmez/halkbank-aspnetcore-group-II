@@ -1,4 +1,5 @@
 ﻿
+using ECommerce.API.Models.Responses;
 using ECommerce.Infrastructure.Entities;
 using ECommerce.Infrastructure.Repositories;
 
@@ -7,7 +8,7 @@ namespace ECommerce.API.Services
     public interface IProductService
     {
         Task<Product> CreateAsync(Product product);
-        Task<IEnumerable<Product>> GetAllProductsAsync();
+        Task<IEnumerable<ProductListResponse>> GetAllProductsAsync();
         Task<Product?> GetByIdAsync(int id);
 
         Task<bool> DeleteAsync(int id);

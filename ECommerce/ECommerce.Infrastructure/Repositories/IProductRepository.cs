@@ -11,6 +11,12 @@ namespace ECommerce.Infrastructure.Repositories
 
         Task<bool> IsSKUExists(string sku);
 
+        //Include fonksiyonunu çağıracağını sade EFProductRepository nesnesi bilir.
+        Task<IEnumerable<Product>> ListWithCategoryAsync();
+        Task<Product> GetProductWithCategory(int id);
+        
+
+
 
     }
 }

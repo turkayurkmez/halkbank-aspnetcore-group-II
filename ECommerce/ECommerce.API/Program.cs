@@ -6,6 +6,7 @@ using ECommerce.API.Validators;
 using ECommerce.Infrastructure.Data;
 using ECommerce.Infrastructure.Repositories;
 using FluentValidation;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using System.Text.Json.Serialization;
@@ -34,6 +35,7 @@ builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(conect
 builder.Services.AddValidatorsFromAssemblyContaining<CreateProductValidator>();
 
 builder.Services.AddOpenApi();
+builder.Services.AddMapster();
 
 var app = builder.Build();
 //burada kestrel ve tüm gereksindiğim nesnelerin konfigürasyonu tamamlandı. 

@@ -5,6 +5,7 @@ using ECommerce.API.Services;
 using ECommerce.API.Validators;
 using ECommerce.Infrastructure.Entities;
 using FluentValidation;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.API.Controllers
@@ -27,7 +28,7 @@ namespace ECommerce.API.Controllers
         public async Task<IActionResult> GetAll()
         {
             await Task.CompletedTask;
-            return Ok(await _productService.GetProductSummaries());
+            return Ok(await _productService.GetAllProductsAsync());
         }
 
         [HttpPost]
@@ -40,14 +41,16 @@ namespace ECommerce.API.Controllers
                 return validation.ToValidationProblem(this);
             }
 
-            var product = new Product
-            {
-                CategoryId = request.CategoryId,
-                Name = request.Name,
-                Price = request.Price,
-                SKU = request.Sku,
-                Stock = request.Stock,
-            };
+            //var product = new Product
+            //{
+            //    CategoryId = request.CategoryId,
+            //    Name = request.Name,
+            //    Price = request.Price,
+            //    SKU = request.Sku,
+            //    Stock = request.Stock,
+            //};
+
+            var product = request.Adapt<Product>();
 
             await _productService.CreateAsync(product);
             return CreatedAtAction(nameof(Get), new { id = product.Id }, product);

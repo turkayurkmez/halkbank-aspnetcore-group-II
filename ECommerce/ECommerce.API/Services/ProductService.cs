@@ -1,7 +1,9 @@
 ﻿
 
+using ECommerce.API.Models.Responses;
 using ECommerce.Infrastructure.Entities;
 using ECommerce.Infrastructure.Repositories;
+using Mapster;
 
 namespace ECommerce.API.Services
 {
@@ -15,9 +17,19 @@ namespace ECommerce.API.Services
         //    this.productRepository = productRepository;
         //}
 
-        public async Task<IEnumerable<Product>> GetAllProductsAsync()
+        public async Task<IEnumerable<ProductListResponse>> GetAllProductsAsync()
         {
-            return await uow.Products.GetAllAsync();
+            var products = await uow.Products.ListWithCategoryAsync();
+
+            //return products.Select(p => new ProductListResponse(
+            //    Id: p.Id,
+            //    Name: p.Name,
+            //    Sku: p.SKU,
+            //    Price: p.Price,
+            //    Stock: p.Stock,
+            //    CategoryName: p.Category?.Name ?? string.Empty));
+
+            return products.Adapt<IEnumerable<ProductListResponse>>();
         }
 
 

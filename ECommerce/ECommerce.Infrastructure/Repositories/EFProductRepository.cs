@@ -6,12 +6,12 @@ using System.Linq.Expressions;
 namespace ECommerce.Infrastructure.Repositories
 {
     public class EFProductRepository(AppDbContext db) : Repository<Product>(db), IProductRepository
-    {              
+    {
 
         public async Task<IEnumerable<Product>> SearchByNameAsync(string name)
         {
             return await db.Products.AsNoTracking().Where(p => p.Name.Contains(name, StringComparison.OrdinalIgnoreCase)).ToListAsync();
-        }       
+        }
 
         public async Task<IEnumerable<ProductSummary>> GetProductSummaries()
         {
@@ -24,19 +24,29 @@ namespace ECommerce.Infrastructure.Repositories
             var product = await db.Products.FindAsync(id);
             product.Price *= 1 - discountRate;
 
-           // await db.SaveChangesAsync();
+            // await db.SaveChangesAsync();
             return product;
         }
 
         public override Task<bool> IsExistsAsync(int id)
         {
-            return base.Set.AnyAsync(p=>p.Id== id);
+            return base.Set.AnyAsync(p => p.Id == id);
 
         }
 
         public async Task<bool> IsSKUExists(string sku)
         {
             return await db.Products.AnyAsync(p => p.SKU == sku);
+        }
+
+        public async Task<IEnumerable<Product>> ListWithCategoryAsync()
+        {
+            return await db.Products.AsNoTracking().Include(p => p.Category).ToListAsync();
+        }
+
+        public async Task<Product?> GetProductWithCategory(int id)
+        {
+            return await db.Products.AsNoTracking().Include(p => p.Category).FirstOrDefaultAsync(p => p.Id == id);
         }
 
 
