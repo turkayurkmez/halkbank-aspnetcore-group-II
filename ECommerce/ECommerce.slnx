@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="Demo.Benchmark/Demo.Benchmark.csproj" Id="0dbb7e5d-7928-4a70-b6ff-0f02fe32a7e9" />
   <Project Path="ECommerce.API/ECommerce.API.csproj" />
   <Project Path="ECommerce.Infrastructure/ECommerce.Infrastructure.csproj" Id="35a09418-53f5-4bb2-b612-03379c7464dd" />
 </Solution>

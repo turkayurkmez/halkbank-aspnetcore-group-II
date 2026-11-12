@@ -131,4 +131,17 @@ tek `ValidationProblem` yanıtında döner.
 - **Extension method:** Tekrarlanan hata dönüştürme kodu tek noktada toplanır.
 - **Cascade mode:** Gereksiz DB sorgusunu önlemek için ilk başarısız kuralda durulur.
 - **DTO:** Entity'ler API dışına sızmaz; yanıt şekli servis katmanında DTO ile belirlenir.
-- **Mapster:** Aynı isim ve tipteki alanlar otomatik eşlenir; farklı olanlar için `IRegister` ile config yazılır.
+farklı olanlar için `IRegister` ile config yazılır.
+
+### Benchmark Sonucu: Manuel Mapping vs Mapster
+
+`Demo.Benchmark` projesinde BenchmarkDotNet ile `Product` -> `ProductListResponse` dönüşümü ölçüldü (.NET 10, Release).
+
+| Method | Count | Mean | Ratio | Allocated |
+|---|---|---|---|---|
+| Manual | 1 | 76,39 ns | 1,00 | 128 B |
+| Mapster | 1 | 156,76 ns | 2,07 | 128 B |
+| Manual | 1000 | 50,01 µs | 1,00 | 72 KB |
+| Mapster | 1000 | 86,89 µs | 1,75 | 72 KB |
+
+**Çıkarım:** Manuel mapping, Mapster'dan yaklaşık 1,7-2 kat hızlıdır; bellek tahsisi aynıdır. Mutlak fark 1000 kayıtta yaklaşık 37 µs olduğundan, çoğu API senaryosunda Mapster'ın bakım kolaylığı bu farkı karşılar. Çok yüksek hacimli kritik yollarda manuel mapping tercih edilebilir.
