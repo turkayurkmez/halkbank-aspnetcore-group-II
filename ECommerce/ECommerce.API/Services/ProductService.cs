@@ -33,10 +33,11 @@ namespace ECommerce.API.Services
         }
 
 
-        public async Task<Product?> GetByIdAsync(int id)
+        public async Task<ProductListResponse?> GetByIdAsync(int id)
         {
 
-            return await uow.Products.GetbyIdAsync(id);
+            var product = await uow.Products.GetbyIdAsync(id);
+            return product.Adapt<ProductListResponse>();
         }
 
         public async Task<Product> CreateAsync(Product product)

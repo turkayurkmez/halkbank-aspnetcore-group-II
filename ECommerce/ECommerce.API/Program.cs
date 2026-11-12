@@ -1,3 +1,4 @@
+using ECommerce.API.Mappings;
 using ECommerce.API.Middlewares;
 using ECommerce.API.Notifications;
 using ECommerce.API.Options;
@@ -35,7 +36,11 @@ builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(conect
 builder.Services.AddValidatorsFromAssemblyContaining<CreateProductValidator>();
 
 builder.Services.AddOpenApi();
+
+TypeAdapterConfig.GlobalSettings.Default.RequireDestinationMemberSource(true);
+TypeAdapterConfig.GlobalSettings.Scan(typeof(ProductMappingConfig).Assembly);
 builder.Services.AddMapster();
+TypeAdapterConfig.GlobalSettings.Compile();
 
 var app = builder.Build();
 //burada kestrel ve tüm gereksindiğim nesnelerin konfigürasyonu tamamlandı. 
