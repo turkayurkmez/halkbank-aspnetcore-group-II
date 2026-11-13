@@ -1,6 +1,8 @@
 ﻿
-using ECommerce.API.Services;
-using ECommerce.Infrastructure.Entities;
+
+using ECommerce.Application.Services;
+using ECommerce.Domain.Entities;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.API.Controllers

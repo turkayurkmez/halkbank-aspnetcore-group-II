@@ -1,5 +1,6 @@
-﻿using ECommerce.Infrastructure.Data;
-using ECommerce.Infrastructure.Entities;
+﻿using ECommerce.Domain.Entities;
+using ECommerce.Infrastructure.Data;
+
 using System;
 using System.Collections.Generic;
 using System.Text;

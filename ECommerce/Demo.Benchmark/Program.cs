@@ -1,7 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
-using ECommerce.API.Models.Responses;
-using ECommerce.Infrastructure.Entities;
+using ECommerce.Application.Models.Responses;
+using ECommerce.Domain.Entities;
 using Mapster;
 
 BenchmarkRunner.Run<MappingBenchmarks>();

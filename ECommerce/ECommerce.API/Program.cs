@@ -1,9 +1,11 @@
-using ECommerce.API.Mappings;
 using ECommerce.API.Middlewares;
-using ECommerce.API.Notifications;
-using ECommerce.API.Options;
-using ECommerce.API.Services;
-using ECommerce.API.Validators;
+using ECommerce.Application;
+using ECommerce.Application.Mappings;
+using ECommerce.Application.Notifications;
+using ECommerce.Application.Options;
+using ECommerce.Application.Services;
+using ECommerce.Application.Validators;
+using ECommerce.Infrastructure;
 using ECommerce.Infrastructure.Data;
 using ECommerce.Infrastructure.Repositories;
 using FluentValidation;
@@ -21,26 +23,18 @@ builder.Services.AddControllers().AddJsonOptions(option => option.JsonSerializer
 
 builder.Services.Configure<ShopOptions>(builder.Configuration.GetSection(ShopOptions.SECTION_NAME));
 
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddSingleton<INotificationChannel, EmailChannel>();
-builder.Services.AddSingleton<INotificationChannel, SMSChannel>();
-builder.Services.AddSingleton<INotificationChannel, WhatsAppChannel>();
-builder.Services.AddScoped<NotificationService>();
-builder.Services.AddScoped<IOrderService, OrderService>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 
 var conectionString = builder.Configuration.GetConnectionString("Default");
-builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(conectionString));
+builder.Services.AddInfrastructure(conectionString);
+builder.Services.AddApplication();
+
 
 //Her yeni ...Validator'u yazmaktansa, bir kere class'ın bulunduğu yeri belirtin geri kalanını otomatik eklesin:
-builder.Services.AddValidatorsFromAssemblyContaining<CreateProductValidator>();
 
 builder.Services.AddOpenApi();
 
-TypeAdapterConfig.GlobalSettings.Default.RequireDestinationMemberSource(true);
-TypeAdapterConfig.GlobalSettings.Scan(typeof(ProductMappingConfig).Assembly);
-builder.Services.AddMapster();
-TypeAdapterConfig.GlobalSettings.Compile();
+
 
 var app = builder.Build();
 //burada kestrel ve tüm gereksindiğim nesnelerin konfigürasyonu tamamlandı. 
