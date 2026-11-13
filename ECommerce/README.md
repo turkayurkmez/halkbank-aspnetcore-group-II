@@ -145,3 +145,23 @@ farklı olanlar için `IRegister` ile config yazılır.
 | Mapster | 1000 | 86,89 µs | 1,75 | 72 KB |
 
 **Çıkarım:** Manuel mapping, Mapster'dan yaklaşık 1,7-2 kat hızlıdır; bellek tahsisi aynıdır. Mutlak fark 1000 kayıtta yaklaşık 37 µs olduğundan, çoğu API senaryosunda Mapster'ın bakım kolaylığı bu farkı karşılar. Çok yüksek hacimli kritik yollarda manuel mapping tercih edilebilir.
+## Gün 9 - 13.11.2026
+
+### İşlenen Konular
+
+- Çözüm katmanlı (Clean Architecture) yapıya geçirildi: `ECommerce.Domain`, `ECommerce.Application`, `ECommerce.Infrastructure` ve `ECommerce.API` projeleri oluşturuldu (`ECommerce.slnx` güncellendi).
+- Entity'ler (`Product`, `Category`, `Customer`, `Order`, `OrderItem`, `Review`, `IEntity`) `ECommerce.Domain/Entities` altına taşındı.
+- Servisler, validator'lar, bildirim kanalları (`EmailChannel`, `SMSChannel`, `WhatsAppChannel`), `ShopOptions`, Mapster config'i ve request/response modelleri API'den `ECommerce.Application` projesine taşındı.
+- Her katman kendi DI kaydını yapar: `AddApplication()` (`DepedencyInjection.cs`) ve `AddInfrastructure(connectionString)` (`DependencyInjection.cs`); `Program.cs` yalnızca bu iki extension metodu çağırır ve API projesi artık sadece Application'a referans verir.
+- Ürün akışı **MediatR** ile CQRS yapısına taşındı (`Features/Products` altında):
+  - Command: `CreateProductCommand` (`IRequest<CreateProductResponse>`) ve `CreateProductHandler` (Mapster ile `Product`'a eşler, `IUnitOfWork` ile kaydeder).
+  - Query: `GetProductsQuery` ve `GetProductsHandler` (`GetProductResponse` listesi döner).
+- `CreateProductValidator`, `CreateProductRequest` yerine `CreateProductCommand` üzerinde çalışacak şekilde güncellendi.
+- `IProductService` içine, servis sınıfının her davranış için yeni metotla şişmemesi gerektiğini anlatan açıklama eklendi.
+
+### Vurgulanan Noktalar
+
+- **Katmanlı mimari:** Bağımlılık yönü API -> Application -> Domain; Infrastructure veri erişimini sağlar.
+- **Katman başına DI:** Her proje kendi servislerini `Add...` extension metoduyla kaydeder, `Program.cs` sadeleşir.
+- **CQRS / MediatR:** Her özellik bir nesne kombinasyonudur: Request (ne alır) -> Response (ne döner) -> Handler (ne/nasıl yapar).
+- **Service şişmesi:** Tek bir servis sınıfına her özellik için metot eklemek yerine özellik başına handler yazılır.
