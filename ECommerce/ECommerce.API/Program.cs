@@ -30,7 +30,7 @@ builder.Services.AddInfrastructure(conectionString);
 builder.Services.AddApplication();
 
 
-//Her yeni ...Validator'u yazmaktansa, bir kere class'ın bulunduğu yeri belirtin geri kalanını otomatik eklesin:
+
 
 builder.Services.AddOpenApi();
 

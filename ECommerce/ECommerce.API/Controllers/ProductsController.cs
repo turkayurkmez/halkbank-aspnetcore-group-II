@@ -1,10 +1,13 @@
 ﻿
 using ECommerce.API.Extensions;
+using ECommerce.Application.Features.Products.Commands.CreateProduct;
+using ECommerce.Application.Features.Products.Queries.GetProducts;
 using ECommerce.Application.Requests;
 using ECommerce.Application.Services;
 using ECommerce.Domain.Entities;
 using FluentValidation;
 using Mapster;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.API.Controllers
@@ -15,23 +18,27 @@ namespace ECommerce.API.Controllers
     {
 
         private readonly IProductService _productService;
-        private readonly IValidator<CreateProductRequest> _createValidator;
+        private readonly IValidator<CreateProductCommand> _createValidator;
+        private readonly IMediator _mediator;
 
-        public ProductsController(IProductService productService, IValidator<CreateProductRequest> createValidator)
+        public ProductsController(IProductService productService, IValidator<CreateProductCommand> createValidator, IMediator mediator)
         {
             _productService = productService;
             _createValidator = createValidator;
+            _mediator = mediator;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            await Task.CompletedTask;
-            return Ok(await _productService.GetAllProductsAsync());
+            var request = new GetProductsQuery();
+            var response = await _mediator.Send(request);
+
+            return Ok(response);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateProductRequest request)
+        public async Task<IActionResult> Create(CreateProductCommand request)
         {
 
             var validation = await _createValidator.ValidateAsync(request);
@@ -49,11 +56,14 @@ namespace ECommerce.API.Controllers
             //    Stock = request.Stock,
             //};
 
-            var product = request.Adapt<Product>();
+            // var product = request.Adapt<Product>();
 
-            await _productService.CreateAsync(product);
-            return CreatedAtAction(nameof(Get), new { id = product.Id }, product);
-          
+            //  await _productService.CreateAsync(product);
+
+            var response = await _mediator.Send(request);
+
+            return CreatedAtAction(nameof(Get), new { id = response.Id }, response);
+
 
         }
 

@@ -21,4 +21,13 @@ namespace ECommerce.Application.Services
 
         Task<Product> ApplyDiscount(int id, decimal discountRate);
     }
+    /*
+     * Mimariyi böyle kurarsanız her yazılımcı, gelecekte buraya her davranış için bir fonksiyon yazacak. Yani bu class yatay büyüyecek yani şişmanlayacak!
+     * 
+     * Her özellik -> bir fonksyon olmasın
+     * Her özellik -> nesne kombinasyonu.
+     *  1. Parametre ne alır -> Request 
+     *  2. Ne döndürür -> Response
+     *  3. Ne/nasıl yapar -> Handler
+     */
 }

@@ -1,10 +1,11 @@
-﻿using ECommerce.Application.Requests;
+﻿using ECommerce.Application.Features.Products.Commands.CreateProduct;
+using ECommerce.Application.Requests;
 using ECommerce.Infrastructure.Repositories;
 using FluentValidation;
 
 namespace ECommerce.Application.Validators
 {
-    public class CreateProductValidator :AbstractValidator<CreateProductRequest>
+    public class CreateProductValidator :AbstractValidator<CreateProductCommand>
     {
         public CreateProductValidator(IUnitOfWork uow)
         {
@@ -26,13 +27,13 @@ namespace ECommerce.Application.Validators
 
             string pattern = "^[A-Z0-9-]{4,20}$";
 
-            RuleFor(p => p.Sku)
+            RuleFor(p => p.SKU)
                    .Cascade(CascadeMode.Stop)
                    
                    .NotEmpty().WithMessage("SKU değeri zounludur")
                    .Matches(pattern).WithMessage("SKU yalnızca büyük harf, rakam ve '-' içerebilir. Ayrıca 4-20 karakter aralığında olmalıdır ")
                    .MustAsync(async (sku, _) => !await uow.Products.IsSKUExists(sku))
-                   .WithMessage(x => $"Bu sku başka bir ürün tarafından kullanılıyor: {x.Sku}");
+                   .WithMessage(x => $"Bu sku başka bir ürün tarafından kullanılıyor: {x.SKU}");
 
                 
         }
