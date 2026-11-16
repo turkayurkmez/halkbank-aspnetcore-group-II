@@ -165,3 +165,22 @@ farklı olanlar için `IRegister` ile config yazılır.
 - **Katman başına DI:** Her proje kendi servislerini `Add...` extension metoduyla kaydeder, `Program.cs` sadeleşir.
 - **CQRS / MediatR:** Her özellik bir nesne kombinasyonudur: Request (ne alır) -> Response (ne döner) -> Handler (ne/nasıl yapar).
 - **Service şişmesi:** Tek bir servis sınıfına her özellik için metot eklemek yerine özellik başına handler yazılır.
+
+## Gün 9 - 16.11.2026
+
+### İşlenen Konular
+
+- MediatR için `ValidationBehavior<TRequest, TResponse>` pipeline davranışı eklendi; FluentValidation doğrulamaları handler çalışmadan önce merkezi olarak yapılır ve hata varsa `ValidationException` fırlatılır.
+- `ProductsController` içindeki doğrulama kodu kaldırıldı, `CreateProductHandler` sadeleştirildi; davranış `DepedencyInjection` içinde kaydedildi.
+- `ExceptionHandlingMiddleware` doğrulama hatalarını istemciye dönecek şekilde güncellendi.
+- Kimlik doğrulama altyapısı eklendi: `User` entity'si (`ECommerce.Domain`), `IPasswordHasher` (`Infrastructure/Auth`), `IUserRepository` / `UserRepository`.
+- `IUnitOfWork` içine `User` repository'si eklendi; `AppDbContext` güncellendi ve `add_membership` migration'ı oluşturuldu.
+- Kullanıcı kaydı için `RegisterUserCommand`, `RegisterUserCommandValidator` ve `RegisterCommandHandler` yazıldı (Customer rolü atanır, e-posta normalize edilir, şifre hash'lenir, Mapster ile eşleme yapılır).
+- Boş kalan `Class1.cs` silindi.
+- TODO: Kayıt sırasında Refresh token üretimi ve `AuthResponse` dönüşü henüz tamamlanmadı.
+
+### Vurgulanan Noktalar
+
+- **Pipeline Behavior:** Middleware'e benzer, ancak MediatR tarafından yönetilir; handler öncesi çapraz kesen işler (validasyon) burada toplanır.
+- **Validasyon tekrarını önleme:** Kontroller controller'larda değil, tek bir behavior içinde yapılır.
+- **Rol tabanlı üyelik:** Kullanıcı-Rol ilişkisi migration ile veritabanına yansıtıldı.
