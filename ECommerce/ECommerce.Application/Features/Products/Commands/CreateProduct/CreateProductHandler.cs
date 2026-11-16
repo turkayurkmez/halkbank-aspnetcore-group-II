@@ -11,6 +11,7 @@ namespace ECommerce.Application.Features.Products.Commands.CreateProduct
 {
     public class CreateProductHandler(IUnitOfWork uow) : IRequestHandler<CreateProductCommand, CreateProductResponse>
     {
+        //burası, behavior'un next'i:
         public async Task<CreateProductResponse> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
             var product = command.Adapt<Product>();
