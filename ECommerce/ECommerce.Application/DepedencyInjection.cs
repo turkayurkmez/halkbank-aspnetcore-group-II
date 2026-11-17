@@ -1,12 +1,15 @@
-﻿using ECommerce.Application.Behaviors;
+﻿using ECommerce.Application.Auth;
+using ECommerce.Application.Behaviors;
 using ECommerce.Application.Features.Products.Commands.CreateProduct;
 using ECommerce.Application.Mappings;
 using ECommerce.Application.Notifications;
 using ECommerce.Application.Options;
 using ECommerce.Application.Services;
 using ECommerce.Application.Validators;
+using ECommerce.Infrastructure.Auth;
 using FluentValidation;
 using Mapster;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -16,7 +19,7 @@ namespace ECommerce.Application
 {
     public static class DepedencyInjection
     {
-        public static IServiceCollection AddApplication(this IServiceCollection services)
+        public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
         {
            
 
@@ -28,6 +31,10 @@ namespace ECommerce.Application
             services.AddScoped<IOrderService, OrderService>();
             services.AddValidatorsFromAssemblyContaining<CreateProductValidator>();
 
+            services.AddScoped<ITokenService, JwtTokenService>();
+            services.AddOptions<JwtOptions>().Bind(configuration.GetSection(JwtOptions.SectionName));
+            services.AddScoped<IPasswordHasher,PasswordHasher>();
+            services.AddScoped<AuthTokenIssuer>();
 
             //Her yeni ...Validator'u yazmaktansa, bir kere class'ın bulunduğu yeri belirtin geri kalanını otomatik eklesin:
             //Aşağıdaki konfigürasyonlar varsayılan yaklaşımı ezer. Yani normalde isim-tip eşleşmesi yaparken, siz ProductMappingConfig ile bu davranışı override edersiniz.
@@ -43,6 +50,8 @@ namespace ECommerce.Application
                 config.RegisterServicesFromAssemblyContaining<CreateProductCommand>();
                 config.AddOpenBehavior(typeof(ValidationBehavior<,>));
             });
+
+            
 
             return services;
         }

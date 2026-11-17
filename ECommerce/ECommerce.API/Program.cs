@@ -1,5 +1,6 @@
 using ECommerce.API.Middlewares;
 using ECommerce.Application;
+using ECommerce.Application.Auth;
 using ECommerce.Application.Mappings;
 using ECommerce.Application.Notifications;
 using ECommerce.Application.Options;
@@ -10,8 +11,13 @@ using ECommerce.Infrastructure.Data;
 using ECommerce.Infrastructure.Repositories;
 using FluentValidation;
 using Mapster;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
+using System.Text;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,7 +33,32 @@ builder.Services.Configure<ShopOptions>(builder.Configuration.GetSection(ShopOpt
 
 var conectionString = builder.Configuration.GetConnectionString("Default");
 builder.Services.AddInfrastructure(conectionString);
-builder.Services.AddApplication();
+builder.Services.AddApplication(builder.Configuration);
+
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
+builder.Services.AddOptions<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme)
+                .Configure<IOptions<JwtOptions>>((bearer, jwtAcessor) =>
+                {
+
+                    bearer.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = jwtAcessor.Value.Issuer,
+                        ValidateAudience = true,
+                        ValidAudience = jwtAcessor.Value.Audience,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtAcessor.Value.SigninKey)),
+                        ValidAlgorithms = [SecurityAlgorithms.HmacSha256],
+                        ValidateLifetime = true,
+                        NameClaimType = "Name",
+                        RoleClaimType = "role"
+
+                    };
+
+                });
+
+builder.Services.AddAuthorization();
 
 
 

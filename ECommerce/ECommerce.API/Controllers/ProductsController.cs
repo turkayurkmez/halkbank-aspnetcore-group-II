@@ -8,6 +8,7 @@ using ECommerce.Domain.Entities;
 using FluentValidation;
 using Mapster;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.API.Controllers
@@ -37,7 +38,10 @@ namespace ECommerce.API.Controllers
             return Ok(response);
         }
 
+
+        [Authorize(Roles = Role.Customer)]
         [HttpPost]
+       
         public async Task<IActionResult> Create(CreateProductCommand request)
         {
 

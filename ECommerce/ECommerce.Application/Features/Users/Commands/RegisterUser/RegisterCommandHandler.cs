@@ -14,7 +14,7 @@ namespace ECommerce.Application.Features.Users.Commands.RegisterUser
     {
         public async Task<AuthResponse> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
-             var role = await uow.User.FindRoleAsync(Role.Customer) ?? new Role { Name = Role.Customer };
+            var role = await uow.User.FindRoleAsync(Role.Customer) ?? new Role { Name = Role.Customer };
 
             var user = request.Adapt<User>();
 

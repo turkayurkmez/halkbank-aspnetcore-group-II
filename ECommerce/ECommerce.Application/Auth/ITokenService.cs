@@ -55,7 +55,7 @@ namespace ECommerce.Application.Auth
                 [JwtRegisteredClaimNames.Sub] = user.Id.ToString(),
                 [JwtRegisteredClaimNames.Email] = user.Email,
                 [JwtRegisteredClaimNames.Name] = user.FullName,
-                [JwtRegisteredClaimNames.Birthdate] = user.DateOfBirth,
+                [JwtRegisteredClaimNames.Birthdate] = user.DateOfBirth.ToString(),
                 ["role"] = user.Roles.Select(r => r.Name).ToArray()
                 //["takim"] = user.Team
             };
