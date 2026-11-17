@@ -1,4 +1,5 @@
-﻿using ECommerce.Domain.Entities;
+﻿using ECommerce.Application.Auth;
+using ECommerce.Domain.Entities;
 using ECommerce.Infrastructure.Auth;
 using ECommerce.Infrastructure.Repositories;
 using Mapster;
@@ -9,7 +10,7 @@ using System.Text;
 
 namespace ECommerce.Application.Features.Users.Commands.RegisterUser
 {
-    public class RegisterCommandHandler(IUnitOfWork uow, IPasswordHasher passwordHasher) : IRequestHandler<RegisterUserCommand, AuthResponse>
+    public class RegisterCommandHandler(IUnitOfWork uow, IPasswordHasher passwordHasher, AuthTokenIssuer issuer) : IRequestHandler<RegisterUserCommand, AuthResponse>
     {
         public async Task<AuthResponse> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
@@ -25,11 +26,12 @@ namespace ECommerce.Application.Features.Users.Commands.RegisterUser
 
             await uow.User.CreateAsync(user);
 
-            //TODO 1.1: DİKKAT!!! Burada, kullanıcı kaydı yapılırken Refresh token da üretilecek...
-            await Task.CompletedTask;
-            return null;
-            
+            // TODO 1.1: DİKKAT!!! Burada, kullanıcı kaydı yapılırken Refresh token da üretilecek...
 
+
+            var refreshPlain = await issuer.AddRefreshTokenAsync(user);
+            await uow.SaveChangesAsync();
+            return issuer.CreateResponse(user, refreshPlain);
         }
     }
 }
