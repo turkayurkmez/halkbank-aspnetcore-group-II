@@ -1,3 +1,4 @@
+using ECommerce.API.AuthPolicies;
 using ECommerce.API.Middlewares;
 using ECommerce.Application;
 using ECommerce.Application.Auth;
@@ -17,6 +18,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -58,7 +60,15 @@ builder.Services.AddOptions<JwtBearerOptions>(JwtBearerDefaults.AuthenticationSc
 
                 });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("minAge18", policy =>
+    {
+        policy.RequireAuthenticatedUser()
+              .RequireClaim(JwtRegisteredClaimNames.Birthdate)
+              .AddRequirements(new MinAgeRequirement(18));
+    });
+});
 
 
 
@@ -103,6 +113,10 @@ app.Logger.LogInformation($"dosyadaki değer: {value}");
 //app.UseExceptionHandler();
 
 app.MapGet("/ping", () => Results.Ok(new { status = "ok" }));
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 
 app.MapControllers();
 

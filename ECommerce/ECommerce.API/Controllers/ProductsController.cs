@@ -39,7 +39,7 @@ namespace ECommerce.API.Controllers
         }
 
 
-        [Authorize(Roles = Role.Customer)]
+        [Authorize]
         [HttpPost]
        
         public async Task<IActionResult> Create(CreateProductCommand request)
