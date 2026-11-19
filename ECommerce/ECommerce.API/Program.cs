@@ -2,18 +2,10 @@ using ECommerce.API.AuthPolicies;
 using ECommerce.API.Middlewares;
 using ECommerce.Application;
 using ECommerce.Application.Auth;
-using ECommerce.Application.Mappings;
-using ECommerce.Application.Notifications;
 using ECommerce.Application.Options;
-using ECommerce.Application.Services;
-using ECommerce.Application.Validators;
 using ECommerce.Infrastructure;
 using ECommerce.Infrastructure.Data;
-using ECommerce.Infrastructure.Repositories;
-using FluentValidation;
-using Mapster;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -132,3 +124,6 @@ app.MapControllers();
 
 
 app.Run();
+
+//Integration test için Program sınıfını partial olarak tanımladık. Böylece testlerde Program sınıfına erişebileceğiz.
+public partial class Program { }

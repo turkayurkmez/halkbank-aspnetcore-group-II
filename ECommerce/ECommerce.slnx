@@ -4,5 +4,6 @@
   <Project Path="ECommerce.Application/ECommerce.Application.csproj" Id="77048078-4f6a-4678-b290-3778abf6e09c" />
   <Project Path="ECommerce.Domain/ECommerce.Domain.csproj" Id="62beb8eb-f18b-4e54-9650-7e55f702a2e0" />
   <Project Path="ECommerce.Infrastructure/ECommerce.Infrastructure.csproj" Id="35a09418-53f5-4bb2-b612-03379c7464dd" />
+  <Project Path="ECommerce.Tests/ECommerce.IntegrationTests/ECommerce.IntegrationTests.csproj" Id="f83a42a3-6a07-48f7-a625-0e4cfec37f05" />
   <Project Path="ECommerce.Tests/ECommerce.UnitTests/ECommerce.UnitTests.csproj" Id="6d34d8a4-fbaf-46c8-965f-d751fc3bf087" />
 </Solution>

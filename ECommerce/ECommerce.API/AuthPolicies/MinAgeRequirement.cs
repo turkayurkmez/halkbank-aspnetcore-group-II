@@ -11,13 +11,13 @@ namespace ECommerce.API.AuthPolicies
             var claim = context.User.FindFirst("birthdate").Value;
             var birthDate = DateOnly.ParseExact(claim, "yyyy-MM-dd");
             var age = DateTime.Now.Year - birthDate.Year;
-            if (age>= requirement.Age)
+            if (age >= requirement.Age)
             {
                 context.Succeed(requirement);
             }
 
             return Task.CompletedTask;
-         }
+        }
     }
 
 }

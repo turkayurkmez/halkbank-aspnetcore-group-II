@@ -1,12 +1,8 @@
-﻿
-using ECommerce.API.Extensions;
-using ECommerce.Application.Features.Products.Commands.CreateProduct;
+﻿using ECommerce.Application.Features.Products.Commands.CreateProduct;
 using ECommerce.Application.Features.Products.Queries.GetProducts;
-using ECommerce.Application.Requests;
 using ECommerce.Application.Services;
 using ECommerce.Domain.Entities;
 using FluentValidation;
-using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -41,7 +37,7 @@ namespace ECommerce.API.Controllers
 
         [Authorize]
         [HttpPost]
-       
+
         public async Task<IActionResult> Create(CreateProductCommand request)
         {
 

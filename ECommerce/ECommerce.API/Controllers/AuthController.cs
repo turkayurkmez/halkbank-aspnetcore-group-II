@@ -1,7 +1,6 @@
 ﻿using ECommerce.Application.Features.Users.Commands.Login;
 using ECommerce.Application.Features.Users.Commands.RegisterUser;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.API.Controllers

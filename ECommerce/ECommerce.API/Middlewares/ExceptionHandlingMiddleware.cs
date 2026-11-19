@@ -68,11 +68,11 @@ namespace ECommerce.API.Middlewares
                     break;
                 case AppExceptions appExceptions:
                     _logger.LogWarning("{ExceptionType} -> {Status Code}: {Message}", appExceptions.GetType().Name, appExceptions.StatusCode, appExceptions.Message);
-                   
-                    result = Problem(appExceptions.StatusCode, Title(appExceptions.StatusCode), appExceptions.Message,null, instance, extensions);
+
+                    result = Problem(appExceptions.StatusCode, Title(appExceptions.StatusCode), appExceptions.Message, null, instance, extensions);
                     break;
                 case UnauthorizedAccessException unauthorized:
-                    result = Problem(StatusCodes.Status401Unauthorized, Title(StatusCodes.Status401Unauthorized),unauthorized.Message, null, instance, extensions);
+                    result = Problem(StatusCodes.Status401Unauthorized, Title(StatusCodes.Status401Unauthorized), unauthorized.Message, null, instance, extensions);
                     break;
 
                 default:
@@ -98,7 +98,7 @@ namespace ECommerce.API.Middlewares
 
         private IResult Problem(int statusCode, string title, string message, string? detail, string? instance, Dictionary<string, object> extensions)
         {
-           return  Results.Problem(detail: detail, instance: instance, statusCode: statusCode, title: title, extensions: extensions);
+            return Results.Problem(detail: detail, instance: instance, statusCode: statusCode, title: title, extensions: extensions);
         }
     }
 }
