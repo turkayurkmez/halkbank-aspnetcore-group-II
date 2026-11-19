@@ -184,3 +184,21 @@ farklı olanlar için `IRegister` ile config yazılır.
 - **Pipeline Behavior:** Middleware'e benzer, ancak MediatR tarafından yönetilir; handler öncesi çapraz kesen işler (validasyon) burada toplanır.
 - **Validasyon tekrarını önleme:** Kontroller controller'larda değil, tek bir behavior içinde yapılır.
 - **Rol tabanlı üyelik:** Kullanıcı-Rol ilişkisi migration ile veritabanına yansıtıldı.
+
+## Gün 10 - 19.11.2026
+
+### İşlenen Konular
+
+- **Serilog ve hata yönetimi:** `ECommerce.API` projesine Serilog eklendi ve `appsettings.json` üzerinden yapılandırıldı. `ECommerce.Application/Exceptions/AppExceptions.cs` ile özel uygulama exception'ları tanımlandı; `ExceptionHandlingMiddleware` bu exception'ları uygun HTTP yanıtlarına çevirecek şekilde güncellendi.
+- **Sipariş indirimi ve ürün hata yönetimi:** `Order` entity'sine indirim hesabı eklendi; `ProductService` içinde ürün bulunamadığı gibi durumlar için hata yönetimi yapıldı.
+- **Birim testleri:** `ECommerce.Tests/ECommerce.UnitTests` projesi oluşturuldu; `OrderTest` (domain) ve `ProductServiceTests` (servis) yazıldı.
+- **Entegrasyon testleri:** `ECommerce.Tests/ECommerce.IntegrationTests` projesi oluşturuldu. `CustomWebApplicationFactory` ile `IntegrationTest` ortamı kuruldu, gerçek `AppDbContext` kaydı kaldırılıp InMemory veritabanı kullanıldı, test JWT anahtarı verildi.
+- Testler için `SeedAsync` (kategori ve ürün verisi) ve `GetAuthenticatedClientAsync` (kayıt olup Bearer token alan istemci) yardımcı metotları yazıldı; `ProductsEndPointTests` ile ürün endpoint'leri test edildi.
+- `Program.cs`, `AuthController`, `CategoriesController`, `ProductsController` ve `MinAgeRequirement` testlere uygun hale getirildi; yeni test projeleri `ECommerce.slnx` dosyasına eklendi.
+
+### Vurgulanan Noktalar
+
+- **Test piramidi:** Domain ve servis mantığı hızlı birim testleriyle, HTTP uçtan uca akış entegrasyon testleriyle doğrulanır.
+- **WebApplicationFactory:** Uygulama bellekte ayağa kalkar; `ConfigureServices` ile DbContext değiştirilerek gerçek veritabanına dokunulmaz.
+- **EF Core 10 notu:** Seçenek ayarları ayrı bir `IDbContextOptionsConfiguration` kaydında tutulduğu için DbContext değiştirilirken o kayıt da kaldırılmalıdır.
+- **Test izolasyonu:** Her factory örneği benzersiz isimli InMemory veritabanı kullanır.
