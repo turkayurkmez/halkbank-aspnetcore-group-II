@@ -1,6 +1,7 @@
 ﻿
 
 
+using ECommerce.Application.Exceptions;
 using ECommerce.Application.Models.Responses;
 using ECommerce.Domain.Entities;
 using ECommerce.Infrastructure.Repositories;
@@ -38,6 +39,10 @@ namespace ECommerce.Application.Services
         {
 
             var product = await uow.Products.GetbyIdAsync(id);
+            if (product is null)
+            {
+                throw new NotFoundException("Ürün bulunamadı");
+            }
             return product.Adapt<ProductListResponse>();
         }
 
